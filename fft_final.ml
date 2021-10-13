@@ -1,5 +1,12 @@
 open Complex
-
+let print_array arr=
+	let n = Array.length arr in
+	for i = 0 to n-1 do 
+		Printf.printf "%d x^%d + " (int_of_float arr.(i)) i;
+	done;
+	Printf.printf "\n";
+	;;
+	
 let print p1 = 
 	let n = Array.length p1 in
 	for i = 0 to n-1 do
@@ -11,9 +18,17 @@ let print p1 =
 let print_real p1 = 
 	let n = Array.length p1 in
 	for i = 0 to n-1 do
-        Printf.printf "%f	\n" p1.(i).re 
+        Printf.printf "%.0f x^%d + " p1.(i).re i;
     done;
 	Printf.printf "\n"
+	;;
+
+let print_co p1 = 
+	let n = Array.length p1 in
+	for i = 0 to n-1 do
+        Printf.printf " %.0f ," p1.(i).re;
+    done;
+	Printf.printf "]\n"
 	;;
 
 
@@ -22,7 +37,6 @@ let rec fft p sign =
 
 	if n = 1 then 
 		begin
-			Printf.printf "hello\n";
 			p			
 		end
 	else 
@@ -89,8 +103,30 @@ let mult x y =
 
 
 let () =
-	let a = [|9. ; -10.;  7.;  6. |] in
-	let b = [| -5.;  4.;  0.;  -2.; |] in
+	Printf.printf "Enter degree of 1st polynomial\n";
+	let n1 = read_int() in
+
+	Printf.printf "enter coeffcients in increasing order of degree\n";
+	let a = Array.make (n1+1) 0. in 
+	for i = 0 to n1 do
+		let x = read_int () in
+		a.(i) <- Float.of_int x;
+	done;
+
+	Printf.printf "\nEnter degree of 2st polynomial\n";
+	let n2 = read_int() in
+
+	Printf.printf "enter coeffcients in increasing order of degree\n";
+	let b = Array.make (n2+1) 0. in 
+	for i = 0 to n2 do
+		let x = read_int () in
+		b.(i) <- Float.of_int x;
+	done;
+
+	Printf.printf "1st polynomial\n";
+	print_array a;
+	Printf.printf "\n2st polynomial\n";
+	print_array b;
 
 	let k = Array.length a + Array.length b in
 	let n = ref 1 in
@@ -110,11 +146,10 @@ let () =
 		y.(i) <- {re = b.(i); im = 0.0}
 	done;	
 
-	let z = [| {re=1.0 ; im=0.0} ; {re=2.0 ; im=0.0} ; {re=3.0 ; im=0.0} ; {re=4.0 ; im=0.0} ; |] in
-	
-	let c = fft z true in
 	let res = mult x y in 
-	print res;
+	Printf.printf "\nProduct after multiplication using FFT is =>\n";
 	print_real res;
+	Printf.printf "\ncoeefcient representation\n[";
+	print_co res;
 	Printf.printf "\n";
 	;;

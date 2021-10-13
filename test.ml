@@ -1,5 +1,12 @@
 open Complex
-
+let print_array arr=
+	let n = Array.length arr in
+	for i = 0 to n-1 do 
+		Printf.printf "%f x^%d " arr.(i) i;
+	done;
+	Printf.printf "\n";
+	;;
+	
 let print p1 = 
 	let n = Array.length p1 in
 	for i = 0 to n-1 do
@@ -8,14 +15,11 @@ let print p1 =
 	Printf.printf "\n"
 	;;
 
-
-
 let rec fft p sign =
 	let n = Array.length p in
 
 	if n = 1 then 
 		begin
-			Printf.printf "hello\n";
 			p			
 		end
 	else 
@@ -82,6 +86,12 @@ let mult x y =
 
 
 let () =
+
+	Printf.printf "Enter degree of 1st polynomial\n";
+	let n1 = read_int() ;
+
+
+
 	let a = [|1. ; 2.|] in
 	let b = [|3. ; 4.|] in
 
