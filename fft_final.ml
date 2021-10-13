@@ -8,6 +8,13 @@ let print p1 =
 	Printf.printf "\n"
 	;;
 
+let print_real p1 = 
+	let n = Array.length p1 in
+	for i = 0 to n-1 do
+        Printf.printf "%f	\n" p1.(i).re 
+    done;
+	Printf.printf "\n"
+	;;
 
 
 let rec fft p sign =
@@ -82,8 +89,8 @@ let mult x y =
 
 
 let () =
-	let a = [|1. ; 2.|] in
-	let b = [|3. ; 4.|] in
+	let a = [|9. ; -10.;  7.;  6. |] in
+	let b = [| -5.;  4.;  0.;  -2.; |] in
 
 	let k = Array.length a + Array.length b in
 	let n = ref 1 in
@@ -106,6 +113,8 @@ let () =
 	let z = [| {re=1.0 ; im=0.0} ; {re=2.0 ; im=0.0} ; {re=3.0 ; im=0.0} ; {re=4.0 ; im=0.0} ; |] in
 	
 	let c = fft z true in
-	print c;
+	let res = mult x y in 
+	print res;
+	print_real res;
 	Printf.printf "\n";
 	;;
